@@ -12,10 +12,17 @@ int _printf(const char *format, ...)
 	int i, j = 0, a = 0, *index = &a;
 	va_list valist;
 	vtype_t spec[] = {
-		{'c', format_c}, {'d', format_d}, {'s', format_s}, {'i', format_d},
-		{'u', format_u}, {'%', format_perc}, {'x', format_h}, {'X', format_ch},
-		{'o', format_o}, {'b', format_b}, {'p', format_p}, {'r', format_r},
-		{'R', format_R}, {'\0', NULL}
+		{"c", print_char},
+		{"s", print_str},
+		{"d", print_int},
+		{"i", print_int},
+		{"u", print_unsigned},
+		{"b", print_unsignedToBinary},
+		{"o", print_oct},
+		{"x", print_hex},
+		{"X", print_HEX},
+		{"S", print_STR},
+		{NULL, NULL}
 	};
 	if (!format)
 		return (-1);
@@ -37,7 +44,7 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			for (j = 0; spec[j].tp 1 != '\0'; j++)
+			for (j = 0; spec[j].tp != '\0'; j++)
 			{
 				if (format[i] == spec[j].tp)
 				{
